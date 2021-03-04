@@ -1,93 +1,298 @@
 <template>
-  <v-row justify="center" align="center">
-    <v-col cols="12" sm="8" md="6">
-      <div class="text-center">
-        <logo />
-        <vuetify-logo />
-      </div>
-      <v-card>
-        <v-card-title class="headline">
-          Welcome to the Vuetify + Nuxt.js template
-        </v-card-title>
-        <v-card-text>
-          <p>
-            Vuetify is a progressive Material Design component framework for
-            Vue.js. It was designed to empower developers to create amazing
-            applications.
-          </p>
-          <p>
-            For more information on Vuetify, check out the
-            <a
-              href="https://vuetifyjs.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              documentation </a
-            >.
-          </p>
-          <p>
-            If you have questions, please join the official
-            <a
-              href="https://chat.vuetifyjs.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="chat"
-            >
-              discord </a
-            >.
-          </p>
-          <p>
-            Find a bug? Report it on the github
-            <a
-              href="https://github.com/vuetifyjs/vuetify/issues"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="contribute"
-            >
-              issue board </a
-            >.
-          </p>
-          <p>
-            Thank you for developing with Vuetify and I look forward to bringing
-            more exciting features in the future.
-          </p>
-          <div class="text-xs-right">
-            <em><small>&mdash; John Leider</small></em>
+  <v-container id="index" class="pa-0">
+    <v-row no-gutters justify="center" class="mt-15">
+      <v-col cols="12">
+        <!-- 最初に表示するボタン -->
+        <div rounded="10" outlined flat min-width="800" class="pa-2 card">
+          <div class="faceicon">
+            <img src="/woman.webp" alt="事務の女性" />
           </div>
-          <hr class="my-3" />
-          <a
-            href="https://nuxtjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
+          <div class="content">
+            <div>
+              <div class="ml-2 mb-2 text-subtitle-1">
+                知りたいことは何ですか？<br />ボタンを１つ押してください👇
+              </div>
+              <v-btn
+                v-for="btn in CATEGORIES"
+                :key="btn.value"
+                class="mx-1 my-1"
+                :color="btn.color"
+                dense
+                @click="showSubcategories(btn.value, btn.text)"
+              >
+                <div class="white--text">
+                  {{ btn.text }}
+                </div>
+              </v-btn>
+            </div>
+          </div>
+        </div>
+        <!-- ユーザのコメント -->
+        <v-row no-gutters>
+          <v-col
+            v-if="userAnswers[0]"
+            cols="12"
+            class="user-comment text-right"
           >
-            Nuxt Documentation
-          </a>
-          <br />
-          <a
-            href="https://github.com/nuxt/nuxt.js"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Nuxt GitHub
-          </a>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer />
-          <v-btn color="primary" nuxt to="/inspire"> Continue </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-col>
-  </v-row>
+            <p>
+              {{ userAnswers[0] }}
+            </p>
+          </v-col>
+        </v-row>
+        <!-- カテゴリ選択肢一覧 -->
+        <div
+          v-if="isSubcategorySelected"
+          flat
+          rounded
+          outlined
+          min-width="800"
+          class="pa-2 my-2 card"
+        >
+          <div class="faceicon">
+            <img src="/woman.webp" alt="事務の女性" />
+          </div>
+          <div class="content">
+            <div>
+              <div class="ml-2 mb-2 text-subtitle-1">
+                {{ selectedCategory }} の何について知りたいですか？<br />
+                ボタンを１つ押してください👇
+              </div>
+              <v-btn
+                v-for="btn in selectedSubcategoryItems"
+                :key="btn.value"
+                class="mx-1 my-1"
+                :color="btn.color"
+                dense
+                @click="showSubcategoryAnswers(btn.value, btn.text)"
+              >
+                <div class="white--text">
+                  {{ btn.text }}
+                </div>
+              </v-btn>
+            </div>
+          </div>
+        </div>
+        <div v-if="userAnswers[1]" class="user-comment text-right">
+          <p>
+            {{ userAnswers[1] }}
+          </p>
+        </div>
+        <!-- 選択されたサブカテゴリにある質問と解答の一覧を表示 -->
+        <div
+          v-if="isSubcategoryItemSelected"
+          flat
+          rounded
+          outlined
+          min-width="800"
+          class="pa-2 my-2 card"
+        >
+          <div class="faceicon">
+            <img src="/woman.webp" alt="事務の女性" />
+          </div>
+          <div class="content">
+            <div>
+              <div class="ml-2 mb-2 text-subtitle-1">
+                {{ selectedSubcategory }} に関係するQ＆Aです。<br />
+                パネルをクリックして回答をご覧ください👍
+              </div>
+              <v-expansion-panels multiple hover accordion>
+                <v-expansion-panel
+                  v-for="(panel, index) in selectedSubcategoryAnswers"
+                  :key="index"
+                  class="mx-1"
+                  dense
+                >
+                  <v-expansion-panel-header>
+                    Q. {{ panel.title }}
+                    <template v-slot:actions>
+                      <v-icon color="#79BD9A"> $expand </v-icon>
+                    </template>
+                  </v-expansion-panel-header>
+                  <v-expansion-panel-content>
+                    <span class="text-subtitle-1">A. </span>
+                    <v-textarea
+                      :value="panel.answer"
+                      auto-grow
+                      rounded
+                      outlined
+                      readonly
+                      color="#79BD9A"
+                    />
+                  </v-expansion-panel-content>
+                </v-expansion-panel>
+              </v-expansion-panels>
+              <div class="ma-2">
+                もし質問したい内容がこの中になければ、
+                <a
+                  target="_blank"
+                  href="https://forms.office.com/Pages/ResponsePage.aspx?id=HvJYJ0E3c0SlzbTYCHVjuZWiBTfteqVHmRkgIVNAoOJUQTg3NUFKM0c2UjNXREFOMUpRR0ZDUU5RNyQlQCN0PWcu"
+                >
+                  こちらからお気軽に質問してくださいね😊
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
-<script>
-import Logo from '~/components/Logo.vue'
-import VuetifyLogo from '~/components/VuetifyLogo.vue'
+<script lang="ts">
+import { defineComponent, ref } from '@nuxtjs/composition-api'
+import { answerData } from '@/answerData'
 
-export default {
-  components: {
-    Logo,
-    VuetifyLogo,
+const CATEGORIES = [
+  {
+    value: 'office',
+    text: 'Office(マイクロソフト オフィス)',
+    color: '#79BD9A'
   },
-}
+  {
+    value: 'microsoft',
+    text: 'Microsoft',
+    color: '#79BD9A'
+  },
+  { value: 'teams', text: 'Teams', color: '#79BD9A' },
+  { value: 'zoom', text: 'Zoom', color: '#79BD9A' },
+  { value: 'webClass', text: 'WebClass', color: '#79BD9A' },
+  { value: 'step', text: 'Stepポータル', color: '#79BD9A' },
+  { value: 'lan', text: '学内無線LAN', color: '#79BD9A' },
+  { value: 'printer', text: 'プリンター', color: '#79BD9A' },
+  { value: 'others', text: 'その他', color: 'grey' }
+  // TODO:必要？
+  // { value: 'os', text: 'OS', color: '#6088C6' },
+  // { value: 'pc', text: 'パソコン操作方法', color: '#6088C6' },
+  // { value: 'password', text: 'パスワード変更', color: '#6088C6' },
+  // { value: 'facilities', text: '学内設備', color: '#6088C6' },
+  // { value: 'email', text: '学内email', color: '#6088C6' },
+  // {
+  //   value: 'googleClassroom',
+  //   text: 'Google classroom',
+  //   color: '#6088C6'
+  // },
+  // { value: 'alc', text: 'ALC NetAcademy NEXT', color: '#6088C6' },
+]
+export default defineComponent({
+  name: 'Index',
+  setup() {
+    const userAnswers = ref<Array<string>>([])
+    const isSubcategorySelected = ref(false)
+    const selectedCategory = ref('')
+    const selectedSubcategoryItems = ref()
+    // 選択されたカテゴリーのサブカテゴリー選択肢の一覧を表示する
+    const showSubcategories = (
+      categoryValue: string,
+      categoryText: string
+    ): void => {
+      const categoryItems = answerData.find(
+        (item: any) => item.category === categoryValue
+      )
+      if (categoryItems) {
+        isSubcategorySelected.value = true
+        userAnswers.value[0] = categoryText
+        selectedCategory.value = categoryText
+        selectedSubcategoryItems.value = categoryItems.subCategories
+      }
+    }
+
+    const selectedSubcategory = ref('')
+    const isSubcategoryItemSelected = ref(false)
+    const selectedSubcategoryAnswers = ref([])
+    // 選択されたサブカテゴリが持つQ＆Aを表示する
+    const showSubcategoryAnswers = (
+      categoryValue: string,
+      categoryText: string
+    ) => {
+      selectedSubcategoryAnswers.value = selectedSubcategoryItems.value.find(
+        (item: any) => item.value === categoryValue
+      ).answers
+      userAnswers.value[1] = categoryText
+      selectedSubcategory.value = categoryText
+      isSubcategoryItemSelected.value = true
+    }
+
+    return {
+      CATEGORIES,
+      userAnswers,
+      selectedSubcategory,
+      isSubcategorySelected,
+      selectedCategory,
+      selectedSubcategoryItems,
+      showSubcategories,
+      isSubcategoryItemSelected,
+      showSubcategoryAnswers,
+      selectedSubcategoryAnswers
+    }
+  }
+})
 </script>
+
+<style scoped>
+/* チャット */
+/* 回答者(アイコン) */
+.card .faceicon {
+  float: left;
+  margin-right: -50px;
+  width: 35px;
+}
+.card .faceicon img {
+  width: 100%;
+  height: auto;
+  border-radius: 50%;
+}
+/* 回答者(コメント) */
+.card .content {
+  width: 95%;
+  text-align: left;
+}
+.content {
+  display: inline-block;
+  position: relative;
+  margin: 0 5px 0 50px;
+  padding: 10px;
+  /* max-width: 250px; */
+  border-radius: 12px;
+  background: #efefef;
+}
+.content:after {
+  content: '';
+  display: inline-block;
+  position: absolute;
+  top: 3px;
+  left: -19px;
+  border: 8px solid transparent;
+  border-right: 18px solid #efefef;
+  -webkit-transform: rotate(35deg);
+  transform: rotate(35deg);
+}
+.content div {
+  margin: 0;
+  padding: 0;
+}
+
+/* ユーザー(コメント) */
+.user-comment {
+  margin: 10px 0;
+}
+.user-comment p {
+  display: inline-block;
+  position: relative;
+  margin: 0 10px 0 0;
+  padding: 8px;
+  max-width: 250px;
+  border-radius: 12px;
+  background: #a8dba8;
+  font-size: 15px;
+}
+.user-comment p:after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  right: -19px;
+  border: 8px solid transparent;
+  border-left: 18px solid #a8dba8;
+  -webkit-transform: rotate(-35deg);
+  transform: rotate(-35deg);
+}
+</style>
