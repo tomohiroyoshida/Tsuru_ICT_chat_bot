@@ -10,17 +10,17 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: '%s - Tsuru_ITC_chat_bot',
-    title: 'Tsuru_ITC_chat_bot',
+    titleTemplate: '都留文科大学 ICT職員Q＆Aチャットボット',
+    title: '都留文科大学 ICT職員Q＆Aチャットボット',
     htmlAttrs: {
-      lang: 'en'
+      lang: 'ja'
     },
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: '' }
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+    link: [{ rel: 'icon', type: 'image/webp', href: '/woman.webp' }]
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
