@@ -2,7 +2,7 @@ module.exports = {
   root: true,
   env: {
     browser: true,
-    node: true,
+    node: true
   },
   extends: [
     'eslint:recommended',
@@ -10,7 +10,7 @@ module.exports = {
     'prettier',
     'prettier/vue',
     'plugin:prettier/recommended',
-    'plugin:nuxt/recommended',
+    'plugin:nuxt/recommended'
   ],
   plugins: ['prettier'],
   rules: {
@@ -24,8 +24,8 @@ module.exports = {
         arrowParens: 'always',
         tabWidth: 2,
         printWidth: 80,
-        endOfLine: 'lf',
-      },
-    ],
-  },
+        endOfLine: 'lf'
+      }
+    ]
+  }
 }
