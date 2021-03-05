@@ -185,6 +185,11 @@ export default defineComponent({
       categoryValue: string,
       categoryText: string
     ): void => {
+      // Q＆A一覧を初期化する
+      isSubcategoryItemSelected.value = false
+      selectedSubcategoryAnswers.value = []
+      selectedSubcategory.value = ''
+      userAnswers.value[1] = ''
       const categoryItems = answerData.find(
         (item: any) => item.category === categoryValue
       )
