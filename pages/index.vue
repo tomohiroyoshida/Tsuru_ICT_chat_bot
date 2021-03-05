@@ -107,7 +107,7 @@
                 </v-expansion-panel>
               </v-expansion-panels>
               <div class="ma-2">
-                もし質問したい内容がこの中になければ、
+                もし知りたい内容がこの中になければ、
                 <a
                   target="_blank"
                   href="https://forms.office.com/Pages/ResponsePage.aspx?id=HvJYJ0E3c0SlzbTYCHVjuZWiBTfteqVHmRkgIVNAoOJUQTg3NUFKM0c2UjNXREFOMUpRR0ZDUU5RNyQlQCN0PWcu"
