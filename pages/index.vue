@@ -113,7 +113,6 @@
                     <v-textarea
                       :value="panel.answer"
                       auto-grow
-                      rounded
                       outlined
                       readonly
                       color="#79BD9A"
@@ -137,6 +136,7 @@
     </v-row>
   </v-container>
 </template>
+<script src="https://cdn.jsdelivr.net/npm/vue-scrollto"></script>
 
 <script lang="ts">
 import { defineComponent, ref } from '@nuxtjs/composition-api'
@@ -175,7 +175,7 @@ const CATEGORIES = [
 ]
 export default defineComponent({
   name: 'Index',
-  setup() {
+  setup(_, { root }) {
     const userAnswers = ref<Array<string>>([])
     const isSubcategorySelected = ref(false)
     const selectedCategory = ref('')
@@ -198,9 +198,14 @@ export default defineComponent({
         userAnswers.value[0] = categoryText
         selectedCategory.value = categoryText
         selectedSubcategoryItems.value = categoryItems.subCategories
+        scrollToBottom()
       }
     }
-
+    const scrollToBottom = (): void => {
+      root.$nextTick(() => {
+        window.scrollTo(0, document.body.clientHeight)
+      })
+    }
     const selectedSubcategory = ref('')
     const isSubcategoryItemSelected = ref(false)
     const selectedSubcategoryAnswers = ref([])
@@ -215,6 +220,7 @@ export default defineComponent({
       userAnswers.value[1] = categoryText
       selectedSubcategory.value = categoryText
       isSubcategoryItemSelected.value = true
+      scrollToBottom()
     }
 
     return {
@@ -224,6 +230,7 @@ export default defineComponent({
       isSubcategorySelected,
       selectedCategory,
       selectedSubcategoryItems,
+      scrollToBottom,
       showSubcategories,
       isSubcategoryItemSelected,
       showSubcategoryAnswers,
