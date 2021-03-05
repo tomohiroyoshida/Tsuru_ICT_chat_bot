@@ -1,7 +1,7 @@
 <template>
   <v-container id="index" class="pa-0">
     <v-row no-gutters justify="center" class="mt-15">
-      <v-col cols="12">
+      <v-col cols="12" class="px-2">
         <!-- 最初に表示するボタン -->
         <div rounded="10" outlined flat min-width="800" class="pa-2 card">
           <div class="faceicon">
@@ -231,6 +231,11 @@ export default defineComponent({
 <style scoped>
 /* チャット */
 /* 回答者(アイコン) */
+.card {
+  width: 100%;
+  margin: 10px 0;
+  overflow: hidden;
+}
 .card .faceicon {
   float: left;
   margin-right: -50px;
