@@ -122,7 +122,6 @@
     </v-row>
   </v-container>
 </template>
-<script src="https://cdn.jsdelivr.net/npm/vue-scrollto"></script>
 
 <script lang="ts">
 import { defineComponent, ref } from '@nuxtjs/composition-api'
