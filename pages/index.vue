@@ -3,7 +3,7 @@
     <v-row no-gutters justify="center" class="mt-15">
       <v-col cols="12" class="px-2">
         <!-- 最初に表示するボタン -->
-        <div rounded="10" outlined flat min-width="800" class="pa-2 card">
+        <div class="mt-2 pa-2 card">
           <div class="faceicon">
             <img src="/woman.webp" alt="事務の女性" />
           </div>
@@ -40,20 +40,13 @@
           </v-col>
         </v-row>
         <!-- カテゴリ選択肢一覧 -->
-        <div
-          v-if="isSubcategorySelected"
-          flat
-          rounded
-          outlined
-          min-width="800"
-          class="pa-2 my-2 card"
-        >
+        <div v-if="isSubcategorySelected" class="pa-2 my-2 card">
           <div class="faceicon">
             <img src="/woman.webp" alt="事務の女性" />
           </div>
           <div class="content">
             <div>
-              <div class="ml-2 mb-2 text-subtitle-1">
+              <div class="px-2 pb-2 text-subtitle-1">
                 {{ selectedCategory }} の何について知りたいですか？<br />
                 ボタンを１つ押してください👇
               </div>
@@ -78,24 +71,17 @@
           </p>
         </div>
         <!-- 選択されたサブカテゴリにある質問と解答の一覧を表示 -->
-        <div
-          v-if="isSubcategoryItemSelected"
-          flat
-          rounded
-          outlined
-          min-width="800"
-          class="pa-2 my-2 card"
-        >
+        <div v-if="isSubcategoryItemSelected" class="pa-2 my-2 card">
           <div class="faceicon">
             <img src="/woman.webp" alt="事務の女性" />
           </div>
           <div class="content">
             <div>
-              <div class="ml-2 mb-2 text-subtitle-1">
+              <div class="pl-2 pb-2 text-subtitle-1">
                 {{ selectedSubcategory }} に関係するQ＆Aです。<br />
                 パネルをクリックして回答をご覧ください👍
               </div>
-              <v-expansion-panels multiple hover accordion>
+              <v-expansion-panels multiple hover>
                 <v-expansion-panel
                   v-for="(panel, index) in selectedSubcategoryAnswers"
                   :key="index"
@@ -126,7 +112,7 @@
                   target="_blank"
                   href="https://forms.office.com/Pages/ResponsePage.aspx?id=HvJYJ0E3c0SlzbTYCHVjuZWiBTfteqVHmRkgIVNAoOJUQTg3NUFKM0c2UjNXREFOMUpRR0ZDUU5RNyQlQCN0PWcu"
                 >
-                  こちらからお気軽に質問してくださいね😊
+                  こちらからお気軽に質問してください😊
                 </a>
               </div>
             </div>
@@ -203,7 +189,7 @@ export default defineComponent({
     }
     const scrollToBottom = (): void => {
       root.$nextTick(() => {
-        window.scrollTo(0, document.body.clientHeight)
+        window.scrollTo(0, document.body.clientHeight - 100)
       })
     }
     const selectedSubcategory = ref('')
@@ -244,9 +230,8 @@ export default defineComponent({
 /* チャット */
 /* 回答者(アイコン) */
 .card {
-  width: 100%;
-  margin: 10px 0;
-  overflow: hidden;
+  /* width: 100%; */
+  /* overflow: hidden; */
 }
 .card .faceicon {
   float: left;
