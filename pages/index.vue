@@ -112,7 +112,7 @@
                   target="_blank"
                   href="https://forms.office.com/Pages/ResponsePage.aspx?id=HvJYJ0E3c0SlzbTYCHVjuZWiBTfteqVHmRkgIVNAoOJUQTg3NUFKM0c2UjNXREFOMUpRR0ZDUU5RNyQlQCN0PWcu"
                 >
-                  こちらからお気軽に質問してください😊
+                  こちらからお気軽にご質問ください😊
                 </a>
               </div>
             </div>
