@@ -76,45 +76,43 @@
             <img src="/woman.webp" alt="事務の女性" />
           </div>
           <div class="content">
-            <div>
-              <div class="pl-2 pb-2 text-subtitle-1">
-                {{ selectedSubcategory }} に関係するQ＆Aです。<br />
-                パネルをクリックして回答をご覧ください👍
-              </div>
-              <v-expansion-panels multiple hover>
-                <v-expansion-panel
-                  v-for="(panel, index) in selectedSubcategoryAnswers"
-                  :key="index"
-                  class="mx-1"
-                  dense
-                >
-                  <v-expansion-panel-header>
-                    Q. {{ panel.title }}
-                    <template v-slot:actions>
-                      <v-icon color="#79BD9A"> $expand </v-icon>
-                    </template>
-                  </v-expansion-panel-header>
-                  <v-expansion-panel-content>
-                    <span class="text-subtitle-1">A. </span>
-                    <v-textarea
-                      :value="panel.answer"
-                      auto-grow
-                      outlined
-                      readonly
-                      color="#79BD9A"
-                    />
-                  </v-expansion-panel-content>
-                </v-expansion-panel>
-              </v-expansion-panels>
-              <div class="ma-2">
-                もし知りたい内容がこの中になければ、
-                <a
-                  target="_blank"
-                  href="https://forms.office.com/Pages/ResponsePage.aspx?id=HvJYJ0E3c0SlzbTYCHVjuZWiBTfteqVHmRkgIVNAoOJUQTg3NUFKM0c2UjNXREFOMUpRR0ZDUU5RNyQlQCN0PWcu"
-                >
-                  こちらからお気軽にご質問ください😊
-                </a>
-              </div>
+            <div class="pl-2 pb-2 text-subtitle-1">
+              {{ selectedSubcategory }} に関係するQ＆Aです。<br />
+              パネルをクリックして回答をご覧ください👍
+            </div>
+            <v-expansion-panels multiple hover>
+              <v-expansion-panel
+                v-for="(panel, index) in selectedSubcategoryAnswers"
+                :key="index"
+                class="mx-1"
+                dense
+              >
+                <v-expansion-panel-header>
+                  Q. {{ panel.title }}
+                  <template v-slot:actions>
+                    <v-icon color="#79BD9A"> $expand </v-icon>
+                  </template>
+                </v-expansion-panel-header>
+                <v-expansion-panel-content>
+                  <span class="text-subtitle-1">A. </span>
+                  <v-textarea
+                    :value="panel.answer"
+                    auto-grow
+                    outlined
+                    readonly
+                    color="#79BD9A"
+                  />
+                </v-expansion-panel-content>
+              </v-expansion-panel>
+            </v-expansion-panels>
+            <div class="ma-2">
+              もし知りたい内容がこの中になければ、
+              <a
+                target="_blank"
+                href="https://forms.office.com/Pages/ResponsePage.aspx?id=HvJYJ0E3c0SlzbTYCHVjuZWiBTfteqVHmRkgIVNAoOJUQTg3NUFKM0c2UjNXREFOMUpRR0ZDUU5RNyQlQCN0PWcu"
+              >
+                こちらからお気軽にご質問ください😊
+              </a>
             </div>
           </div>
         </div>
@@ -244,7 +242,7 @@ export default defineComponent({
 }
 /* 回答者(コメント) */
 .card .content {
-  width: 95%;
+  width: 100%;
   text-align: left;
 }
 .content {
